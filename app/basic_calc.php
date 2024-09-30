@@ -4,14 +4,14 @@ require('validators.php');
 
 class Calculadora
 {
-    public $num1;
-    public $num2;
+    private $num1;
+    private $num2;
     public $submit_value;
 
 
     use Validators;
 
-    public function __construct($num1, $num2, $submit_value)
+    private function __construct($num1, $num2, $submit_value)
     {
         $this->num1 = $num1;
         $this->num2 = $num2;

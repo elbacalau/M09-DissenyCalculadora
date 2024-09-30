@@ -9,26 +9,17 @@
 </head>
 
 <body>
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="navbar-left">
-            <span>Calculadora Oriol</span>
-        </div>
-        <div class="navbar-right">
-            <ul>
-                <li class="dropdown">
-                    <a href="javascript:void(0)" class="dropbtn">Menú</a>
-                    <div class="dropdown-content">
-                        <a href="app/basic_calc.php">Opción 1</a>
-                        <a href="app/factorial.php">Opción 2</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-    <!-- Formulari -->
     
+    <div class="gradient"></div>
+
+   
+    <h1 class="title-text">Calculadora Oriol</h1>
+
+   
+    <div class="button-container">
+        <button class="button-56" role="button" onclick="location.href='app/basic_calc.php'">Calculadora Básica</button>
+        <button class="button-56" role="button" onclick="location.href='app/factorial.php'">Calculadora Factorial</button>
+    </div>
 </body>
 
 </html>
