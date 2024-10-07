@@ -1,0 +1,67 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "bc238b9c91c39e2f3b884b9f4948b578",
+    "packages": [
+        {
+            "name": "aboyadzhiev/php-math-parser",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aboyadzhiev/php-math-parser.git",
+                "reference": "49baa6ea02cf6e46df8872a842d764a4dbb2a06d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/aboyadzhiev/php-math-parser/zipball/49baa6ea02cf6e46df8872a842d764a4dbb2a06d",
+                "reference": "49baa6ea02cf6e46df8872a842d764a4dbb2a06d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Math\\": "src/Math"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Adrean Boyadzhiev",
+                    "email": "adrean.boyadzhiev@gmail.com"
+                }
+            ],
+            "description": "Simple mathematical expression parser and calculator.",
+            "keywords": [
+                "math calculator",
+                "math parser",
+                "shunting-yard algorithm"
+            ],
+            "support": {
+                "issues": "https://github.com/aboyadzhiev/php-math-parser/issues",
+                "source": "https://github.com/aboyadzhiev/php-math-parser/tree/2.0.0"
+            },
+            "time": "2022-12-15T14:52:36+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.6.0"
+}

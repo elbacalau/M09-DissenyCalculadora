@@ -1,0 +1,13 @@
+{
+    "name": "drifyy/calculadora",
+    "type": "project",
+    "authors": [
+        {
+            "name": "elbacalau",
+            "email": "104230251+elbacalau@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "aboyadzhiev/php-math-parser": "^2.0"
+    }
+}

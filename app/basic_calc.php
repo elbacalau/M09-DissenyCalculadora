@@ -1,87 +1,127 @@
 <?php
-require('validators.php');
+
+require_once './validators.php'; 
+require_once '../vendor/autoload.php';
+require_once './views/calc_screen.php';
+require_once './utils/const.php';
+require_once 'factorial.php';
 
 
+session_start();
 class Calculadora
 {
-    private $num1;
-    private $num2;
+    private $expression;
     public $submit_value;
-
 
     use Validators;
 
-    private function __construct($num1, $num2, $submit_value)
+    // constructor
+    public function __construct($expression, $submit_value)
     {
-        $this->num1 = $num1;
-        $this->num2 = $num2;
+        $this->expression = $expression;
         $this->submit_value = $submit_value;
     }
 
-
+   
     public function basicCalc(): string
+{
+    
+    if ($this->submit_value === '=') {
+
+        // verificar la divisio entre 0
+        if (strpos($this->expression, '/0') !== false) {
+            return 'Error: No es pot dividir entre 0';
+        }
+
+        try {
+            
+            $this->expression = str_replace('x', '*', $this->expression);
+
+            $parser = new \Math\Parser();
+            $result = $parser->evaluate($this->expression);
+
+            
+            return (string)$result;
+        } catch (ParseError $e) {
+            return 'Expression no válida';
+        }
+
+    
+    } elseif ($this->submit_value === 'C') {
+        return '';
+
+    
+    } elseif ($this->submit_value === 'factorial') {
+        $factorial = new Factorial(NUMERO_FACT, TIPO_FACT);
+
+        if (TIPO_FACT === 'recursiu') {
+            $result = $factorial->calcRecursive();
+        } elseif (TIPO_FACT === 'iteratiu') {
+            $result = $factorial->calcIterative();
+        } else {
+            return 'Error: Tipo de factorial no válido';
+        }
+
+        return (string)$result;
+
+    
+    } else {
+        
+        return $this->expression . $this->submit_value;
+    }
+}
+
+
+    
+    public static function handleRequest(): void
     {
-        switch ($this->submit_value) {
-            case 'Sumar':
-                return $this->num1 + $this->num2;
-            case 'Restar':
-                return $this->num1 - $this->num2;
-            case 'Multiplicar':
-                return $this->num1 * $this->num2;
-            case 'Dividir':
-                if ($this->num2 != 0) {
-                    return $this->num1 / $this->num2;
-                } else {
-                    return "No es pot dividir entre 0.";
-                }
-            default:
-                return "Operación no válida.";
+
+        $history = [];
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            if (isset($_POST['clean_history'])) {
+                Historial::clear();
+            }
+
+            $calc = self::processForm();
+            if ($calc) {
+                $calc->display();
+            }
+        } else {
+            $calc = new self('', '');
+            $calc->renderForm('', $history);
         }
     }
-}
 
+    
+    private static function processForm(): Calculadora
+    {
+        $expression = $_POST['expression'] ?? '';
+        $submit_value = $_POST['submit'] ?? '';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $num1 = (int)$_POST['num1'];
-    $num2 = (int)$_POST['num2'];
-    $submit_value = $_POST['submit'];
-
-    // instancia la classe
-    $calc = new Calculadora($num1, $num2, $submit_value);
-
-    // Validaciones
-    if (!$calc->isNotEmpty($num1) || !$calc->isNotEmpty($num2)) {
-        echo "<p>Els camps no poden estar buits 🚫</p>";
-    } elseif (!$calc->isNumeric($num1) || !$calc->isNumeric($num2)) {
-        echo "<p>Els inputs han de ser numèrics 😭</p>";
-    } else {
-        $result = $calc->basicCalc();
-        echo "<div>El resultat és: <b>$result</b></div>";
+        return new self($expression, $submit_value);
     }
+
+    private function display(): void
+    {
+        $result = $this->basicCalc();
+
+        echo "<div><b>Resultado/Expresión:</b> $result</div>";
+
+        $this->renderForm($result, Historial::getHistorial());
+    }
+
+    
+    private function renderForm($result, $history)
+    {
+        renderView($result, $history);    
+    }
+    
 }
 
-?>
+Calculadora::handleRequest();
 
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora Basica</title>
-</head>
 
-<body>
-    <div class="first-container">
-        <form action="basic_calc.php" method="post">
-            <input type="text" name="num1" required><br>
-            <input type="text" name="num2" required><br>
-            <input type="submit" name="submit" value="Sumar">
-            <input type="submit" name="submit" value="Restar">
-            <input type="submit" name="submit" value="Multiplicar">
-            <input type="submit" name="submit" value="Dividir">
-        </form>
-    </div>
-</body>
 
-</html>
