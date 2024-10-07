@@ -18,7 +18,7 @@
    
     <div class="button-container">
         <button class="button-56" role="button" onclick="location.href='app/operaciones_num/basic_calc.php'">Operacions Numèriques</button>
-        <button class="button-56" role="button" onclick="location.href='app/factorial.php'">Operacions amb Strings</button>
+        <button class="button-56" role="button" onclick="location.href='app/operacions_string/string_calc.php'">Operacions amb Strings</button>
     </div>
 </body>
 
